@@ -1,0 +1,49 @@
+body {
+	--main: #F4B000;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 500;
+	font-size: 16px;
+	line-height: 18px;
+	color: var(--fg);
+}
+
+body.theme_dark {
+	--fg: #FCFBF7;
+	--subtle: #918F8A;
+	background: radial-gradient(circle at 50% 50%, #120C01 0%, #000000 100%);
+}
+
+body.theme_light {
+	--fg: #261C00;
+	--subtle: #BFBFBF;
+	background: #fff;
+}
+
+.subtle {
+	--fg: var(--subtle);
+}
+
+.headline {
+	font-size: 30px;
+	line-height: 32px;
+	color: var(--fg);
+	font-weight: 700;
+}
+
+.subhead {
+	font-size: 20px;
+	line-height: 22px;
+	color: var(--fg);
+	font-weight: 700;
+}
+
+.caption {
+	font-size: 14px;
+	line-height: 16px;
+	color: var(--subtle);
+	font-weight: 400;
+}
+
+.subtle .caption, .subtle.caption {
+	color: var(--fg);
+}
