@@ -2,9 +2,10 @@
   import type { LeadersData } from '../data';
   import TeamMember from '../components/team-member.svelte';
   import Glass from '../components/glass.svelte';
-  import reversed from '../utils/reversed';
+  import { reversed, invertIndex } from '../utils/reversed';
 
   export let data: LeadersData;
+  const invertUsersIndex = invertIndex.bind(data.users);
 </script>
 
 <main>
@@ -15,19 +16,19 @@
     </header>
     <section class="standings">
       {#each reversed(data.users) as user, index (user.name)}
-        <div class="position place-{data.users.length - index}">
-          {#if index === data.users.length - 1}
+        <div class="position place-{invertUsersIndex(index) + 1}">
+          {#if index === invertUsersIndex(0)}
             <TeamMember data={user} emoji={data.emoji} />
-          {:else if index === data.selectedUserId}
+          {:else if index === invertUsersIndex(data.selectedUserId)}
             <TeamMember data={user} emoji="👍" />
           {:else}
             <TeamMember data={user} />
           {/if}
 
-          <div class="bar-wrapper" class:clipping={index !== data.users.length - 1}>
-            <Glass class="bar" lit={index === data.users.length - 1} />
+          <div class="bar-wrapper" class:clipping={index !== invertUsersIndex(0)}>
+            <Glass class="bar" lit={index === invertUsersIndex(0)} />
             <div class="content">
-              <div class="headline">{data.users.length - index}</div>
+              <div class="headline">{invertUsersIndex(index) + 1}</div>
             </div>
           </div>
         </div>
