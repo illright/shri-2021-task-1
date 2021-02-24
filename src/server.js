@@ -4,7 +4,7 @@ const data = require('./data.json');
 
 const app = express();
 app.engine('mustache', mustacheExpress());
-app.set('views', `${__dirname}/views`);
+app.set('views', `${__dirname}/templates`);
 app.set('view engine', 'mustache');
 
 

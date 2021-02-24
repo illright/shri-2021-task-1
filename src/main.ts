@@ -1,4 +1,4 @@
-import { Leaders, Vote, Chart, Diagram, Activity } from './templates/index';
+import { Leaders, Vote, Chart, Diagram, Activity } from './slides/index';
 import type { Slide } from './data';
 
 declare let slide: Slide;

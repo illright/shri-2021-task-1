@@ -1,9 +1,9 @@
 <script lang="ts">
   import type { LeadersData } from '../data';
   import Layout from './_layout.svelte';
-  import TeamMember from '../components/team-member.svelte';
-  import Glass from '../components/glass.svelte';
-  import Header from '../components/header.svelte';
+  import TeamMember from '../common/team-member.svelte';
+  import Glass from '../common/glass.svelte';
+  import Header from '../common/header.svelte';
   import { reversed, invertIndex } from '../utils/reversed';
 
   const maxPlaces = 5;
