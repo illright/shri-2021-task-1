@@ -1,41 +1,62 @@
 <script lang="ts">
   import type { LeadersData } from '../data';
+  import Layout from './_layout.svelte';
   import TeamMember from '../components/team-member.svelte';
   import Glass from '../components/glass.svelte';
+  import Header from '../components/header.svelte';
   import { reversed, invertIndex } from '../utils/reversed';
 
+  const maxPlaces = 5;
+  const maxPlacesPortrait = 3;
+
   export let data: LeadersData;
-  const invertUsersIndex = invertIndex.bind(data.users);
+
+  const users = data.users.slice(0, maxPlaces);
+  const invertUsersIndex = invertIndex.bind(users);
+
+  function getEmojiForIndex(index: number) {
+    if (index === 0) {
+      return data.emoji;
+    } else if (index === data.selectedUserId) {
+      return '👍';
+    } else {
+      return null;
+    }
+  }
 </script>
 
-<main>
+<Layout>
   <article class="leaders">
-    <header>
-      <h1 class="headline">{data.title}</h1>
-      <div class="subtle">{data.subtitle}</div>
-    </header>
+    <Header title={data.title} subtitle={data.subtitle} />
     <section class="standings">
-      {#each reversed(data.users) as user, index (user.name)}
+      {#each reversed(users) as user, index (user.name)}
         <div class="position place-{invertUsersIndex(index) + 1}">
-          {#if index === invertUsersIndex(0)}
-            <TeamMember data={user} emoji={data.emoji} />
-          {:else if index === invertUsersIndex(data.selectedUserId)}
-            <TeamMember data={user} emoji="👍" />
-          {:else}
-            <TeamMember data={user} />
-          {/if}
-
+          <TeamMember data={user} emoji={getEmojiForIndex(invertUsersIndex(index))} />
           <div class="bar-wrapper" class:clipping={index !== invertUsersIndex(0)}>
             <Glass class="bar" lit={index === invertUsersIndex(0)} />
             <div class="content">
               <div class="headline">{invertUsersIndex(index) + 1}</div>
+              {#if
+                'selectedUserId' in data
+                && index === invertUsersIndex(0)
+                && data.selectedUserId > invertUsersIndex(maxPlacesPortrait)
+              }
+                <div class="portrait-voted">
+                  <TeamMember
+                    data={data.users[data.selectedUserId]}
+                    emoji={getEmojiForIndex(data.selectedUserId)}
+                  />
+                  <hr />
+                  <div class="headline">{invertUsersIndex(index) + 1}</div>
+                </div>
+              {/if}
             </div>
           </div>
         </div>
       {/each}
     </section>
   </article>
-</main>
+</Layout>
 
 <style lang="scss">
   @use 'sass:math';
@@ -43,34 +64,9 @@
   $max-places: 5;
   $max-places-portrait: 3;
 
-  main {
-    display: flex;
-    justify-content: center;
-    padding: 1.25em 1.5em 0;
-    box-sizing: border-box;
-    min-height: 100vh;
-  }
-
   .leaders {
     display: flex;
     flex-direction: column;
-  }
-
-  header {
-    @media (orientation: portrait) {
-      padding-right: 2em;
-      margin-bottom: 2.375em;
-    }
-
-    @media (orientation: landscape) {
-      text-align: center;
-      margin-bottom: 1.75em;
-    }
-
-    .headline {
-      margin-bottom: 8px;
-      margin-top: 0;
-    }
   }
 
   .standings {
