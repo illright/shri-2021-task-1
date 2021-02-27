@@ -88,6 +88,8 @@
   }
 
   .position {
+    --bar-width: 7.5em;
+
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -95,22 +97,21 @@
     width: min-content;
 
     .bar-wrapper {
-      width: 7.5em;
+      width: var(--bar-width);
       z-index: 2;
       position: relative;
       margin-top: 1em;
 
       &.clipping {
-        width: 6.5em;
+        width: calc(var(--bar-width) - 1em);
         z-index: 1;
       }
     }
 
     :global .bar {
-      width: 7.5em;
+      width: var(--bar-width);
       position: absolute;
       align-self: stretch;
-      height: 6em;
       box-sizing: border-box;
       height: 100%;
 
@@ -151,6 +152,22 @@
 
       hr {
         margin: 0.5625em 0 0.375em;
+      }
+    }
+
+    @media (min-width: 768px) and (orientation: portrait) {
+      --bar-width: 25vw;
+
+      .content {
+        padding: 3em 1em 3em;
+      }
+    }
+
+    @media (min-width: 768px) and (orientation: landscape) {
+      --bar-width: 15vw;
+
+      .content {
+        padding-top: 2em;
       }
     }
 
