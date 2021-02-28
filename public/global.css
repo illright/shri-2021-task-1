@@ -34,6 +34,8 @@ body {
 body.theme_dark {
 	--fg: #FCFBF7;
 	--subtle: #918F8A;
+  --button-bg: var(--fg);
+  --button-bg-hover: var(--subtle);
 	background: radial-gradient(circle at 50% 50%, #120C01 0%, #000000 100%);
 }
 
@@ -44,6 +46,8 @@ body.theme_dark .team-member img {
 body.theme_light {
 	--fg: #261C00;
 	--subtle: #BFBFBF;
+  --button-bg: var(--main);
+  --button-bg-hover: var(--subtle);
 	background: #fff;
 }
 

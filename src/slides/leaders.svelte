@@ -10,6 +10,8 @@
   export let data: LeadersData;
   const bars = generateBars(data);
   const invertBarsIndex = invertIndex.bind(bars);
+
+  // TODO: line clipping
 </script>
 
 <Layout>
