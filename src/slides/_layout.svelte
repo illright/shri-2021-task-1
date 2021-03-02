@@ -8,10 +8,10 @@
     justify-content: center;
     padding: 1.25em 1.5em 0;
     box-sizing: border-box;
-    min-height: 100vh;
+    height: 100vh;
 
     @media (min-width: 768px) {
-      padding-top: 3em;
+      padding: 3em 3em 0;
     }
   }
 </style>
