@@ -59,6 +59,15 @@
     justify-content: center;
     align-items: stretch;
     flex: 1;
+
+    @media (orientation: portrait) {
+      padding-top: 2.375em;
+    }
+
+    @media (orientation: landscape) {
+      padding-top: 1.75em;
+    }
+
   }
 
   @for $i from 1 through $max-places {

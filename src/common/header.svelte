@@ -12,12 +12,10 @@
   header {
     @media (orientation: portrait) {
       padding-right: 2em;
-      margin-bottom: 2.375em;
     }
 
     @media (orientation: landscape) {
       text-align: center;
-      margin-bottom: 1.75em;
     }
 
     .headline {
