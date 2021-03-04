@@ -2,9 +2,10 @@
   let _class = null;
   export { _class as class };
   export let lit = false;
+  export let style: string | null = null;
 </script>
 
-<div class="glass{_class ? ` ${_class}` : ''}" class:lit>
+<div class="glass{_class ? ` ${_class}` : ''}" class:lit {style}>
   <slot />
 </div>
 

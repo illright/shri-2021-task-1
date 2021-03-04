@@ -28,6 +28,29 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
+
+    &.horizontal {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      grid-template-rows: auto auto;
+      justify-items: start;
+      column-gap: .875em;
+
+      .avatar {
+        grid-row: 1 / 3;
+        width: 40px;
+        height: 40px;
+        margin: 0;
+      }
+
+      .name {
+        align-self: end;
+      }
+
+      .value {
+        align-self: start;
+      }
+    }
   }
 
   .avatar {
