@@ -1,5 +1,6 @@
 /** Участник команды */
 interface TeamMember {
+  /** ID участника */
   id: number;
   /** имя участника */
   name: string;
