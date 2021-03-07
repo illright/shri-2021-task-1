@@ -11,7 +11,7 @@
   <article class="diagram">
     <Header title={data.title} subtitle={data.subtitle} />
     <figure>
-      <DonutChart segments={[0.16483516483516483, 0.8]} />
+      <DonutChart segments={[0.2, 0.3, 0.1, 0.4]} />
       <figcaption>
         <ul class="categories">
           {#each data.categories as category (category.title)}
