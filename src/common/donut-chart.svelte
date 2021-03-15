@@ -191,9 +191,11 @@
 <style lang="scss">
   .donut {
     position: relative;
+    margin-bottom: 1em;
 
     @media (orientation: landscape) {
       margin-right: 2.5em;
+      margin-bottom: 0;
     }
   }
 
