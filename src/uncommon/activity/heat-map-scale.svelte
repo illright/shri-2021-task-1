@@ -13,9 +13,9 @@
     1 час
   </span>
 </div>
-{#each intervals as interval, index}
+{#each intervals as interval}
   <div class="key">
-    <div class="color-sample sample-{index}" />
+    <div class="bar" />
     <span class="description subtle">
       {intervalToText(interval)}
     </span>
@@ -33,6 +33,26 @@
 
     .description {
       margin-top: .5em;
+    }
+
+    &:nth-child(2) .bar {
+      background: var(--activity-bar0-bg);
+      box-shadow: var(--activity-bar0-shadow);
+    }
+
+    &:nth-child(3) .bar {
+      background: var(--activity-bar1-bg);
+      box-shadow: var(--activity-bar1-shadow);
+    }
+
+    &:nth-child(4) .bar {
+      background: var(--activity-bar2-bg);
+      box-shadow: var(--activity-bar2-shadow);
+    }
+
+    &:nth-child(5) .bar {
+      background: var(--activity-bar3-bg);
+      box-shadow: var(--activity-bar3-shadow);
     }
   }
 
@@ -67,29 +87,9 @@
     }
   }
 
-  .color-sample {
+  .bar {
     width: 59.2px;
     height: 12px;
     border-radius: 2px;
-
-    &.sample-0 {
-      background: var(--activity-bar0-bg);
-      box-shadow: var(--activity-bar0-shadow);
-    }
-
-    &.sample-1 {
-      background: var(--activity-bar1-bg);
-      box-shadow: var(--activity-bar1-shadow);
-    }
-
-    &.sample-2 {
-      background: var(--activity-bar2-bg);
-      box-shadow: var(--activity-bar2-shadow);
-    }
-
-    &.sample-3 {
-      background: var(--activity-bar3-bg);
-      box-shadow: var(--activity-bar3-shadow);
-    }
   }
 </style>
