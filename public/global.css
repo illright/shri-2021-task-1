@@ -20,6 +20,10 @@ html, body {
   height: 100%;
 }
 
+figure {
+  margin: 0;
+}
+
 body {
 	--main: #F4B000;
 	font-family: 'Roboto', sans-serif;
@@ -40,6 +44,16 @@ body.theme_dark {
   --glass-shadow: inset -1px 1px 1px rgba(255, 255, 255, 0.2), inset 2px 2px 16px rgba(103, 103, 103, 0.6);
   --glass-bg-lit: radial-gradient(91.67% 122.17% at 69.17% -11.17%, #FFA300 0%, #2D1C00 100%);
   --glass-shadow-lit: inset -1px 1px 1px rgba(255, 255, 255, 0.4), inset 0px 6px 15px rgba(255, 162, 0, 0.4);
+  --activity-segment-bg: radial-gradient(51.52% 129.57% at 48.48% 50%, rgba(64, 59, 54, 0) 0%, rgba(19, 18, 17, 0.5) 100%);
+  --activity-segment-shadow: 3px 1px 16px 0px rgba(112, 102, 94, 0.3) inset, 0px -1px 2px 0px rgba(255, 255, 255, 0.25) inset;
+  --activity-bar0-bg: radial-gradient(3906.1% 3815.36% at 89.06% 78.28%, rgba(19, 17, 16, 0.65) 0%, rgba(0, 0, 0, 0.65) 100%);
+  --activity-bar0-shadow: 1px 1px 16px 0px rgba(112, 102, 94, 0.2) inset, -1px 0px 2px 0px rgba(255, 255, 255, 0.2) inset;
+  --activity-bar1-bg: radial-gradient(5752.25% 5190.32% at 74.43% 60.32%, rgba(0, 0, 0, 0.9) 0%, rgba(35, 22, 0, 0.9) 0.01%, rgba(112, 92, 94, 0.9) 100%);
+  --activity-bar1-shadow: 2px 2px 10px 0px rgba(93, 116, 141, 0.6) inset, -1px 0px 1px 0px rgba(255, 255, 255, 0.2) inset;
+  --activity-bar2-bg: radial-gradient(5528.36% 3005.63% at 74.43% 75.84%, rgba(0, 0, 0, 0.9) 0%, rgba(33, 22, 2, 0.9) 0.01%, rgba(172, 113, 9, 0.9) 100%);
+  --activity-bar2-shadow: 2px 2px 10px 0px rgba(242, 159, 13, 0.2) inset, -1px 1px 1px 0px rgba(255, 255, 255, 0.2) inset;
+  --activity-bar3-bg: radial-gradient(2258.03% 620.37% at 83.33% 88.95%, #201502 0%, #C7830A 100%);
+  --activity-bar3-shadow: 2px 2px 10px 0px rgba(242, 159, 13, 0.9) inset, -1px 1px 1px 0px rgba(255, 255, 255, 0.2) inset;
 
 	background: radial-gradient(circle at 50% 50%, #120C01 0%, #000000 100%);
 }
@@ -57,8 +71,26 @@ body.theme_light {
   --glass-shadow: inset -1px 1px 1px rgba(255, 255, 255, 0.5), inset 0px 0px 20px rgba(207, 207, 207, 0.5);
   --glass-bg-lit: linear-gradient(180deg, #FFF2D1 0.82%, #FFD66C 100%);
   --glass-shadow-lit: inset -1px 1px 1px rgba(255, 255, 255, 0.5), inset 0px 0px 20px rgba(255, 176, 57, 0.8);
+  --activity-segment-bg: radial-gradient(2408.25% 2730.55% at 89.06% 78.28%, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.8) 100%);
+  --activity-segment-shadow: 1px 1px 16px 0px rgba(103, 103, 103, 0.2) inset, -1px 0px 2px 0px rgba(255, 255, 255, 0.2) inset;
+  --activity-bar0-bg: radial-gradient(2408.25% 2730.55% at 89.06% 78.28%, rgba(250, 250, 250, 0.6) 0%, rgba(250, 250, 250, 0.6) 100%);
+  --activity-bar0-shadow: 1px 1px 16px 0px rgba(106, 106, 106, .2) inset, -1px 0px 2px 0px rgba(250, 250, 250, .2) inset;
+  --activity-bar1-bg: radial-gradient(2408.25% 2730.55% at 89.06% 78.28%, rgba(250, 250, 250, 0.8) 0%, rgba(250, 250, 250, 0.8) 100%);
+  --activity-bar1-shadow: 1px 1px 16px 0px rgba(106, 106, 106, .3) inset, -1px 0px 2px 0px rgba(250, 250, 250, .2) inset;
+  --activity-bar2-bg: radial-gradient(68.1% 68.1% at 4.41% 31.9%, #FFF6DD 8.72%, #FFFEFA 100%);
+  --activity-bar2-shadow: 0px 0px 20px 0px rgba(255, 176, 57, 0.4) inset, -1px 1px 1px 0px rgba(255, 255, 255, 0.5) inset;
+  --activity-bar3-bg: radial-gradient(66.02% 86.49% at -16.18% 13.51%, rgba(255, 186, 6, 0.85) 0%, #FFF2AD 100%);
+  --activity-bar3-shadow: 0px 0px 20px 0px rgba(255, 176, 57, 0.4) inset, -1px 1px 1px 0px rgba(255, 255, 255, 0.5) inset;
 
 	background: #fff;
+}
+
+body.theme_light .dark-only {
+  display: none;
+}
+
+body.theme_dark .light-only {
+  display: none;
 }
 
 .subtle {
