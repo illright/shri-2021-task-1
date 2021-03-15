@@ -39,7 +39,7 @@ body {
   width: 100%;
 }
 
-body.theme_dark {
+body:not(.theme_light) {
 	--fg: var(--white);
 	--subtle: var(--grey);
   --button-bg: var(--fg);
@@ -62,7 +62,7 @@ body.theme_dark {
 	background: radial-gradient(circle at 50% 50%, #120C01 0%, #000000 100%);
 }
 
-body.theme_dark .team-member img {
+body:not(.theme_light) .team-member img {
   filter: grayscale(1);
 }
 
@@ -93,7 +93,7 @@ body.theme_light .dark-only {
   display: none;
 }
 
-body.theme_dark .light-only {
+body:not(.theme_light) .light-only {
   display: none;
 }
 
