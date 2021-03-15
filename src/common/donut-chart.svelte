@@ -7,9 +7,16 @@
   const outerRadius = canvasSize / 2;
   const innerRadius = outerRadius * innerToOuterRatio;
 
+  export let totalText: string;
+  export let differenceText: string;
   export let segments: number[];
-  const segmentsInDegrees = segmentsToDegrees(segments);
+  const segmentsInDegrees = segmentsToDegrees(rescale(segments));
   const midpoints = calculateMidpoints(segmentsInDegrees);
+
+  function rescale(segments: number[]) {
+    const sum = segments.reduce((a, b) => a + b, 0);
+    return segments.map(segment => segment / sum);
+  }
 
   function segmentsToDegrees(segments: number[]) {
     return segments.map(segment => segment * (360 - segments.length));
@@ -73,7 +80,7 @@
     xmlns="http://www.w3.org/2000/svg"
   >
     {#each segmentsInDegrees as segment, index}
-      <g filter="url(#filter{index}_ii)">
+      <g> <!-- filter="url(#filter{index}_ii)" -->
         <path
           d={buildDonutSegment(midpoints[index], segment, outerRadius, innerRadius, canvasSize)}
           fill="url(#paint0_radial)"
@@ -175,4 +182,67 @@
       </radialGradient>
     </defs>
   </svg>
+  <div class="description">
+    <span class="headline">{totalText}</span>
+    <span class="subhead subtle">{differenceText}</span>
+  </div>
 </div>
+
+<style lang="scss">
+  .donut {
+    position: relative;
+
+    @media (orientation: landscape) {
+      margin-right: 2.5em;
+    }
+  }
+
+  svg {
+    display: block;
+
+    @media (orientation: landscape) {
+      width: 15em;
+      height: 15em;
+    }
+  }
+
+  .description {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    .headline, .subhead {
+      width: 164px;
+    }
+
+    .subhead {
+      margin-top: 8px;
+    }
+
+    @media (orientation: landscape) {
+      .headline, .subhead {
+        width: 120px;
+      }
+
+      .headline {
+        font-size: 20px;
+      	line-height: 22px;
+      }
+
+      .subhead {
+        font-weight: 500;
+      	font-size: 16px;
+      	line-height: 18px;
+        margin-top: 6px;
+      }
+    }
+  }
+</style>
