@@ -11,7 +11,7 @@
 <style lang="scss">
   header {
     @media (orientation: portrait) {
-      padding-right: 2em;
+      padding-right: 1.75em;
     }
 
     @media (orientation: landscape) {

@@ -11,10 +11,6 @@
   const memberAmountLandscape = 6;
   const memberSubset = data.users.slice(data.offset || 0, data.offset || 0 + memberAmountPortrait);
 
-  function getTeamMembers(...indices: number[]) {
-    return indices.map(index => memberSubset[index]);
-  }
-
   const BUTTON_UP = -1;
   const BUTTON_DOWN = -2;
   const variants: Record<string, number[][]> = {
@@ -90,6 +86,12 @@
 <style lang="scss">
   .vote {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .grid {
+      flex: 1;
+    }
   }
 
   @media (orientation: portrait) {
@@ -107,6 +109,16 @@
   .grid {
     display: flex;
     justify-content: space-between;
+
+    &.landscape {
+      justify-content: space-evenly;
+      width: 100vw;
+      margin-left: -1.5em;
+
+      @media (min-width: 768px) {
+        margin-left: -3em;
+      }
+    }
 
     .column {
       display: flex;
