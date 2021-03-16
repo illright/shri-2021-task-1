@@ -9,7 +9,7 @@
 
   const memberAmountPortrait = 8;
   const memberAmountLandscape = 6;
-  const memberSubset = data.users.slice(data.offset || 0, data.offset || 0 + memberAmountPortrait);
+  const memberSubset = data.users.slice(data.offset || 0, (data.offset || 0) + memberAmountPortrait);
 
   const BUTTON_UP = -1;
   const BUTTON_DOWN = -2;
@@ -50,30 +50,36 @@
               {:else if index === BUTTON_DOWN}
                 <ArrowButton
                   offset={
-                    Math.max((data.offset || 0) + (
+                    (data.offset || 0) + (
                       variant === 'portrait' ? memberAmountPortrait : memberAmountLandscape
-                    ), 0)
+                    )
                   }
-                  disabled={(data.offset || 0) === data.users.length - 1}
+                  disabled={
+                    (data.offset || 0) + (
+                      variant === 'portrait' ? memberAmountPortrait : memberAmountLandscape
+                    ) >= data.users.length
+                  }
                 />
               {:else}
-                <div
-                  class="vote-card"
-                  class:selected={memberSubset[index].id === data.selectedUserId}
-                  data-action="update"
-                  data-params={
-                    JSON.stringify({
-                      alias: 'leaders',
-                      data: { selectedUserId: memberSubset[index].id },
-                    })
-                  }
-                >
-                  <TeamMember
-                    data={memberSubset[index]}
-                    emoji={memberSubset[index].id === data.selectedUserId ? '👍' : null}
-                    noValue
-                  />
-                </div>
+                {#if index < memberSubset.length}
+                  <div
+                    class="vote-card"
+                    class:selected={memberSubset[index].id === data.selectedUserId}
+                    data-action="update"
+                    data-params={
+                      JSON.stringify({
+                        alias: 'leaders',
+                        data: { selectedUserId: memberSubset[index].id },
+                      })
+                    }
+                  >
+                    <TeamMember
+                      data={memberSubset[index]}
+                      emoji={memberSubset[index].id === data.selectedUserId ? '👍' : null}
+                      noValue
+                    />
+                  </div>
+                {/if}
               {/if}
             {/each}
           </div>
