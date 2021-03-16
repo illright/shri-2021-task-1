@@ -7,9 +7,12 @@
 
   export let data: ChartData;
 
+  const minHeightPercent = 2;
+  const maxHeightPercent = 70;
+
   const maxValue = Math.max(...data.values.map(period => period.value));
   function percentageOfMax(value: number) {
-    return 2 + (value / maxValue) * (70 - 2);
+    return minHeightPercent + (value / maxValue) * (maxHeightPercent - minHeightPercent);
   }
 
   const leadersToShow = 2;
@@ -55,7 +58,14 @@
   .periods {
     display: flex;
     margin-top: .5em;
+    justify-content: space-evenly;
+    min-width: 100vw;
+    margin-right: -1.5em;
     flex: 1;
+
+    @media (min-width: 768px) {
+      margin-right: -3em;
+    }
 
     @media (orientation: portrait) {
       align-self: flex-end;
@@ -65,8 +75,12 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      margin-left: 1.5em;
       justify-content: flex-end;
-      margin: 0 .5em;
+
+      &:last-child {
+        margin-right: 1.5em;
+      }
 
       :global .glass {
         width: 2.5em;
@@ -79,6 +93,7 @@
     display: flex;
     flex-direction: column;
     padding: 0;
+    margin: .5em 0 0;
 
     li {
       padding: 1em 0;
