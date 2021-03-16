@@ -14,70 +14,76 @@
   function getTeamMembers(...indices: number[]) {
     return indices.map(index => memberSubset[index]);
   }
+
+  const BUTTON_UP = -1;
+  const BUTTON_DOWN = -2;
+  const variants: Record<string, number[][]> = {
+    portrait: [
+      [0, 3, 6],
+      [BUTTON_UP, 1, 4, BUTTON_DOWN],
+      [2, 5, 7],
+    ],
+    landscape: [
+      [0],
+      [1, 4],
+      [BUTTON_UP, BUTTON_DOWN],
+      [2, 5],
+      [3],
+    ],
+  }
 </script>
 
 <Layout>
   <article class="vote">
     <Header title={data.title} subtitle={data.subtitle} />
-    <div class="portrait grid">
-      <div class="column">
-        {#each getTeamMembers(0, 3, 6) as member}
-          <div class="vote-card" class:selected={member.id === data.selectedUserId}>
-            <TeamMember data={member} noValue />
+    {#each Object.keys(variants) as variant}
+      <div class="{variant} grid">
+        {#each variants[variant] as column}
+          <div class="column">
+            {#each column as index}
+              {#if index === BUTTON_UP}
+                <ArrowButton
+                  up
+                  offset={
+                    Math.max((data.offset || 0) - (
+                      variant === 'portrait' ? memberAmountPortrait : memberAmountLandscape
+                    ), 0)
+                  }
+                  disabled={(data.offset || 0) === 0}
+                />
+              {:else if index === BUTTON_DOWN}
+                <ArrowButton
+                  offset={
+                    Math.max((data.offset || 0) + (
+                      variant === 'portrait' ? memberAmountPortrait : memberAmountLandscape
+                    ), 0)
+                  }
+                  disabled={(data.offset || 0) === data.users.length - 1}
+                />
+              {:else}
+                <div
+                  class="vote-card"
+                  class:selected={memberSubset[index].id === data.selectedUserId}
+                  data-action="update"
+                  data-params={
+                    JSON.stringify({
+                      alias: 'leaders',
+                      data: { selectedUserId: memberSubset[index].id },
+                    })
+                  }
+                >
+                  <TeamMember
+                    data={memberSubset[index]}
+                    emoji={memberSubset[index].id === data.selectedUserId ? '👍' : null}
+                    noValue
+                  />
+                </div>
+              {/if}
+            {/each}
           </div>
         {/each}
       </div>
-      <div class="column">
-        <ArrowButton up />
-        {#each getTeamMembers(1, 4) as member}
-          <div class="vote-card" class:selected={member.id === data.selectedUserId}>
-            <TeamMember data={member} noValue />
-          </div>
-        {/each}
-        <ArrowButton />
-      </div>
-      <div class="column">
-        {#each getTeamMembers(2, 5, 7) as member}
-          <div class="vote-card" class:selected={member.id === data.selectedUserId}>
-            <TeamMember data={member} noValue />
-          </div>
-        {/each}
-      </div>
-    </div>
-    <div class="landscape grid">
-      <div class="column">
-        {#each getTeamMembers(0) as member}
-          <div class="vote-card" class:selected={member.id === data.selectedUserId}>
-            <TeamMember data={member} noValue />
-          </div>
-        {/each}
-      </div>
-      <div class="column">
-        {#each getTeamMembers(1, 4) as member}
-          <div class="vote-card" class:selected={member.id === data.selectedUserId}>
-            <TeamMember data={member} noValue />
-          </div>
-        {/each}
-      </div>
-      <div class="column">
-        <ArrowButton up />
-        <ArrowButton />
-      </div>
-      <div class="column">
-        {#each getTeamMembers(2, 5) as member}
-          <div class="vote-card" class:selected={member.id === data.selectedUserId}>
-            <TeamMember data={member} noValue />
-          </div>
-        {/each}
-      </div>
-      <div class="column">
-        {#each getTeamMembers(3) as member}
-          <div class="vote-card" class:selected={member.id === data.selectedUserId}>
-            <TeamMember data={member} noValue />
-          </div>
-        {/each}
-      </div>
-    </div>
+    {/each}
   </article>
 </Layout>
 
