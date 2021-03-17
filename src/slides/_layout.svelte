@@ -4,18 +4,20 @@
 
 <style lang="scss">
   main {
+    --side-padding: 1.5em;
     display: flex;
     justify-content: center;
-    padding: 1.25em 1.5em 0;
+    padding: 1.25em var(--side-padding) 0;
     box-sizing: border-box;
     height: 100vh;
 
     @media (orientation: landscape) {
-      padding: 1.25em 2em 0;
+      --side-padding: 2em;
     }
 
     @media (min-width: 768px) {
-      padding: 3em 3em 0;
+      --side-padding: 3em;
+      padding: 3em var(--side-padding) 0;
     }
   }
 </style>

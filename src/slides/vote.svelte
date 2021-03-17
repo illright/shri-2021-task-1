@@ -119,7 +119,7 @@
     &.landscape {
       justify-content: space-evenly;
       width: 100vw;
-      margin-left: -1.5em;
+      margin-left: calc(-1 * var(--side-padding));
 
       @media (min-width: 768px) {
         margin-left: -3em;
