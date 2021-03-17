@@ -94,26 +94,11 @@
         margin-left: 1em;
       }
 
-      &:nth-child(1) .indicator {
-        background: radial-gradient(49.84% 49.84% at 49.84% 50.16%, rgba(255, 163, 0, 0.8) 71.88%, rgba(91, 58, 0, 0.8) 100%);
-        box-shadow: 0px 0px 20px 0px rgba(255, 162, 0, 0.9) inset, -1px 1px 1px 0px rgba(255, 255, 255, 0.5) inset, 0px 0px 20px -8px rgba(248, 158, 0, 0.2);
-
-      }
-
-      &:nth-child(2) .indicator {
-        background: radial-gradient(49.84% 49.84% at 49.84% 50.16%, rgba(99, 63, 0, 0.5) 72.92%, rgba(15, 9, 0, 0.5) 100%);
-        box-shadow: 0px 0px 20px 0px rgba(202, 129, 0, 0.9) inset, -1px 1px 1px 0px rgba(255, 255, 255, 0.5) inset, 0px 0px 20px -8px rgba(147, 93, 0, 0.2);
-
-      }
-
-      &:nth-child(3) .indicator {
-        background: radial-gradient(100% 100% at 50% 0%, rgba(151, 151, 151, 0.5) 0%, rgba(41, 41, 41, 0.5) 100%);
-        box-shadow: -1px 1px 1px 0px rgba(255, 255, 255, 0.5) inset;
-      }
-
-      &:nth-child(4) .indicator {
-        background: radial-gradient(100% 100% at 50% 0%, rgba(62, 62, 62, 0.5) 0%, rgba(40, 40, 40, 0.5) 100%);
-        box-shadow: -1px 1px 1px 0px rgba(255, 255, 255, 0.5) inset;
+      @for $i from 1 through 4 {
+        &:nth-child(#{$i}) .indicator {
+          background: var(--diagram-indicator#{$i - 1}-bg);
+          box-shadow: var(--diagram-indicator#{$i - 1}-shadow);
+        }
       }
     }
   }
