@@ -13,7 +13,7 @@
     <Header title={data.title} subtitle={data.subtitle} />
     <figure>
       <DonutChart
-        segments={data.categories.map(category => extractAmount(category.valueText))}
+        data={data.categories.map(category => extractAmount(category.valueText))}
         totalText={data.totalText}
         differenceText={data.differenceText}
       />
