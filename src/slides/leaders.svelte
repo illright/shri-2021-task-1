@@ -65,7 +65,7 @@
     }
 
     @media (orientation: landscape) {
-      padding-top: 1.75em;
+      padding-top: 1.625em;
     }
 
   }
@@ -93,7 +93,7 @@
           height: calc(62.5% - #{50px * ($i - 1)});
         }
         @media (orientation: landscape) {
-          height: calc(40% - #{20px * math.ceil(($i - 1) / 2)});
+          height: calc(40% - .8px - #{20px * math.ceil(($i - 1) / 2)});
         }
       }
     }
@@ -184,7 +184,7 @@
     }
 
     :global .team-member {
-      margin: 0 2px;
+      margin: 0 4px;
     }
   }
 </style>

@@ -10,6 +10,10 @@
     box-sizing: border-box;
     height: 100vh;
 
+    @media (orientation: landscape) {
+      padding: 1.25em 2em 0;
+    }
+
     @media (min-width: 768px) {
       padding: 3em 3em 0;
     }

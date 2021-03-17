@@ -16,6 +16,7 @@
 
     @media (orientation: landscape) {
       text-align: center;
+      padding: 0 1.25em;
     }
 
     .headline {
