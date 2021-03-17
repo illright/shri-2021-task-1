@@ -1,3 +1,10 @@
+button {
+  color: unset;
+  font-size: unset;
+  line-height: unset;
+  box-sizing: unset;
+}
+
 @font-face {
   font-family: 'Roboto';
 	font-weight: 400;

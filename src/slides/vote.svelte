@@ -27,6 +27,32 @@
       [3],
     ],
   }
+
+  function selectOnClick(node: HTMLElement) {
+    let wasSelected = node.classList.contains('selected');
+
+  	function handleMousedown(_event: MouseEvent) {
+      if (!wasSelected) {
+        node.classList.add('selected');
+      }
+  	}
+
+  	function handleMouseup(_event: MouseEvent) {
+      if (!wasSelected) {
+        node.classList.remove('selected');
+      }
+  	}
+
+  	node.addEventListener('mousedown', handleMousedown);
+  	node.addEventListener('mouseup', handleMouseup);
+
+  	return {
+  		destroy() {
+  			node.removeEventListener('mousedown', handleMousedown);
+  			node.removeEventListener('mouseup', handleMouseup);
+  		}
+  	};
+  }
 </script>
 
 <Layout>
@@ -62,9 +88,10 @@
                 />
               {:else}
                 {#if index < memberSubset.length}
-                  <div
+                  <button
                     class="vote-card"
                     class:selected={memberSubset[index].id === data.selectedUserId}
+                    use:selectOnClick
                     data-action="update"
                     data-params={
                       JSON.stringify({
@@ -78,7 +105,7 @@
                       emoji={memberSubset[index].id === data.selectedUserId ? '👍' : null}
                       noValue
                     />
-                  </div>
+                  </button>
                 {/if}
               {/if}
             {/each}
@@ -135,6 +162,8 @@
   }
 
   .vote-card {
+    background: none;
+    border: 0;
     cursor: pointer;
     padding: 1.25em .25em 1em;
     width: 6em;
