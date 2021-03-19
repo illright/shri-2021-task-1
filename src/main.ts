@@ -11,7 +11,4 @@ const views = {
 	activity: Activity,
 };
 
-new views[slide.alias]({
-	target: document.body,
-	props: { data: slide.data },
-});
+document.body.innerHTML = views[slide.alias].render({ data: slide.data }).html;
