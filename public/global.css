@@ -3,6 +3,12 @@ button {
   font-size: unset;
   line-height: unset;
   box-sizing: unset;
+  font: unset;
+  letter-spacing: unset;
+  word-spacing: unset;
+  text-transform: unset;
+  text-indent: unset;
+  text-shadow: unset;
 }
 
 @font-face {
