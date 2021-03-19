@@ -72,6 +72,8 @@
 
   @for $i from 1 through $max-places {
     .position.place-#{$i} {
+      z-index: #{$max-places - $i};
+
       @if $i > $max-places-portrait {
         @media (orientation: portrait) {
           display: none;
