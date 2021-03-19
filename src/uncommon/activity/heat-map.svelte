@@ -4,7 +4,6 @@
   export let data: number[];
   export let intervals: Interval[];
   export let isPortrait: boolean;
-  $: imageSize = isPortrait ? '2x' : '1x';
 
   const barHeights = ['min', 'mid', 'max', 'extra'];
   function determineInterval(value: number, intervals: Interval[]) {
@@ -20,12 +19,12 @@
   {#each data as hour}
     <div class="image-wrapper">
       <img
-        src="images/{imageSize}/{barHeights[determineInterval(hour, intervals)]}-light.png"
+        src="images/{barHeights[determineInterval(hour, intervals)]}-light.svg"
         alt="{hour} коммитов"
         class="light-only"
       />
       <img
-        src="images/{imageSize}/{barHeights[determineInterval(hour, intervals)]}-dark.png"
+        src="images/{barHeights[determineInterval(hour, intervals)]}-dark.svg"
         alt="{hour} коммитов"
         class="dark-only"
       />
