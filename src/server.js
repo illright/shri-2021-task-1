@@ -14,7 +14,8 @@ app.get('*', (req, res) => {
   res.render('index', {
     alias: slide.alias,
     data: JSON.stringify(slide.data),
-    theme: req.query.theme || 'dark'
+    theme: req.query.theme || 'dark',
+    title: slide.data.title,
   });
 });
 

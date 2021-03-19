@@ -1,14 +1,20 @@
 import { Leaders, Vote, Chart, Diagram, Activity } from './slides/index';
 import type { Slide } from './data';
 
-declare let slide: Slide;
+interface SSRComponent {
+	render(props: any): { html: string, css: string, head: string }
+}
 
-const views = {
-	leaders: Leaders,
-	vote: Vote,
-	chart: Chart,
-	diagram: Diagram,
-	activity: Activity,
+const views: Record<Slide['alias'], SSRComponent> = {
+	leaders: Leaders as unknown as SSRComponent,
+	vote: Vote as unknown as SSRComponent,
+	chart: Chart as unknown as SSRComponent,
+	diagram: Diagram as unknown as SSRComponent,
+	activity: Activity as unknown as SSRComponent,
 };
 
-document.body.innerHTML = views[slide.alias].render({ data: slide.data }).html;
+function renderTemplate(alias: Slide['alias'], data: Slide['data']) {
+	return views[alias].render({ data }).html;
+}
+
+(window as any).renderTemplate = renderTemplate;

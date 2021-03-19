@@ -4,19 +4,20 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
 
-  <title>Stories</title>
-  <link rel="stylesheet" href="/build/bundle.css">
+  <title>{{{ title }}}</title>
+  <link rel="stylesheet" href="/build/stories.css">
   <link rel="stylesheet" href="/global.css">
   <link rel="icon" href="/images/1x/favicon-s-{{ theme }}.png" type="image/png">
+</head>
+
+<body class="theme_{{ theme }}">
+  <script src="/build/stories.js"></script>
   <script>
     const slide = {
       alias: '{{{ alias }}}',
       data: {{{ data }}},
     };
+    document.body.innerHTML = renderTemplate(slide.alias, slide.data);
   </script>
-  <script defer src="/build/bundle.js"></script>
-</head>
-
-<body class="theme_{{ theme }}">
 </body>
 </html>
