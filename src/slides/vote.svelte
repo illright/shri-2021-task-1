@@ -27,32 +27,6 @@
       [3],
     ],
   }
-
-  function selectOnClick(node: HTMLElement) {
-    let wasSelected = node.classList.contains('selected');
-
-  	function handleMousedown(_event: MouseEvent) {
-      if (!wasSelected) {
-        node.classList.add('selected');
-      }
-  	}
-
-  	function handleMouseup(_event: MouseEvent) {
-      if (!wasSelected) {
-        node.classList.remove('selected');
-      }
-  	}
-
-  	node.addEventListener('mousedown', handleMousedown);
-  	node.addEventListener('mouseup', handleMouseup);
-
-  	return {
-  		destroy() {
-  			node.removeEventListener('mousedown', handleMousedown);
-  			node.removeEventListener('mouseup', handleMouseup);
-  		}
-  	};
-  }
 </script>
 
 <Layout>
@@ -91,7 +65,6 @@
                   <button
                     class="vote-card"
                     class:selected={memberSubset[index].id === data.selectedUserId}
-                    use:selectOnClick
                     data-action="update"
                     data-params={
                       JSON.stringify({
