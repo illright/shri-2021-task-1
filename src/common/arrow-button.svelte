@@ -42,6 +42,7 @@
       height: 100%;
       fill: var(--button-bg);
       display: block;
+      pointer-events: none;
     }
 
     &:hover, &:disabled {
