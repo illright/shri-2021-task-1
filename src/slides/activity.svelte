@@ -38,7 +38,10 @@
           isPortrait={variant === 'portrait'}
         />
         <figcaption>
-          <HeatMapScale intervals={variants[variant].intervals} />
+          <HeatMapScale
+            intervals={variants[variant].intervals}
+            landscape={variant === 'landscape'}
+          />
         </figcaption>
       </figure>
     {/each}

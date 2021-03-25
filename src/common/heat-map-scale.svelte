@@ -5,12 +5,17 @@
   import type { Interval } from '../utils/activity';
 
   export let intervals: Interval[];
+  export let landscape: bool;
 </script>
 
 <div class="key scale">
   <div class="segment" />
   <span class="description subtle">
-    1 час
+    {#if landscape}
+      2 часа
+    {:else}
+      1 час
+    {/if}
   </span>
 </div>
 {#each intervals as interval}
