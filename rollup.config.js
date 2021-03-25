@@ -36,7 +36,7 @@ export default {
 		sourcemap: true,
 		format: 'iife',
 		name: 'app',
-		file: 'public/build/stories.js'
+		file: 'build/stories.js'
 	},
 	plugins: [
 		svelte({
@@ -56,7 +56,7 @@ export default {
 			inlineSources: !production
 		}),
 		!production && serve(),
-		!production && livereload('public'),
+		!production && livereload('build'),
 		production && terser()
 	],
 	watch: {

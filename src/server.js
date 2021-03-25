@@ -8,7 +8,7 @@ app.set('views', `${__dirname}/templates`);
 app.set('view engine', 'mustache');
 
 
-app.use(express.static('public'));
+app.use(express.static('build'));
 app.get('*', (req, res) => {
   const slide = data[(req.query.slide || 1) - 1];
   res.render('index', {
