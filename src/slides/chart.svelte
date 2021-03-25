@@ -72,6 +72,8 @@
     }
 
     .period {
+      --glass-bg-lit: var(--chart-glass-bg-lit);
+      --glass-shadow-lit: var(--chart-glass-shadow-lit);
       display: flex;
       flex-direction: column;
       align-items: center;

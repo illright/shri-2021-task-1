@@ -67,6 +67,8 @@
       --glass-shadow: inset -1px 1px 1px rgba(255, 255, 255, 0.2), inset 2px 2px 16px rgba(103, 103, 103, 0.6);
       --glass-bg-lit: radial-gradient(91.67% 122.17% at 69.17% -11.17%, #FFA300 0%, #2D1C00 100%);
       --glass-shadow-lit: inset -1px 1px 1px rgba(255, 255, 255, 0.4), inset 0px 6px 15px rgba(255, 162, 0, 0.4);
+      --chart-glass-bg-lit: radial-gradient(81.14% 100% at 50% 0%, #FFA300 0%, #2D1C00 100%);
+      --chart-glass-shadow-lit: inset -1px 1px 1px rgba(255, 255, 255, 0.4), inset 0px 6px 15px rgba(255, 162, 0, 0.5);
       --activity-segment-bg: radial-gradient(51.52% 129.57% at 48.48% 50%, rgba(64, 59, 54, 0) 0%, rgba(19, 18, 17, 0.5) 100%);
       --activity-segment-shadow: 3px 1px 16px 0px rgba(112, 102, 94, 0.3) inset, 0px -1px 2px 0px rgba(255, 255, 255, 0.25) inset;
       --activity-bar0-bg: radial-gradient(3906.1% 3815.36% at 89.06% 78.28%, rgba(19, 17, 16, 0.65) 0%, rgba(0, 0, 0, 0.65) 100%);
@@ -103,6 +105,8 @@
       --glass-shadow: inset -1px 1px 1px rgba(255, 255, 255, 0.5), inset 0px 0px 20px rgba(207, 207, 207, 0.5);
       --glass-bg-lit: linear-gradient(180deg, #FFF2D1 0.82%, #FFD66C 100%);
       --glass-shadow-lit: inset -1px 1px 1px rgba(255, 255, 255, 0.5), inset 0px 0px 20px rgba(255, 176, 57, 0.8);
+      --chart-glass-bg-lit: linear-gradient(180deg, #FFF2D1 0.82%, #FFD66C 100%);
+      --chart-glass-shadow-lit: inset -1px 1px 1px rgba(255, 255, 255, 0.5), inset 0px 0px 20px rgba(255, 176, 57, 0.8);
       --activity-segment-bg: radial-gradient(2408.25% 2730.55% at 89.06% 78.28%, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.8) 100%);
       --activity-segment-shadow: 1px 1px 16px 0px rgba(103, 103, 103, 0.2) inset, -1px 0px 2px 0px rgba(255, 255, 255, 0.2) inset;
       --activity-bar0-bg: radial-gradient(2408.25% 2730.55% at 89.06% 78.28%, rgba(250, 250, 250, 0.6) 0%, rgba(250, 250, 250, 0.6) 100%);
