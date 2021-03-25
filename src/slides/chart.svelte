@@ -10,7 +10,7 @@
 
   export let data: ChartData;
 
-  const maxHeightPercent = 70;
+  const maxHeightPercent = 153 / 218 * 100;
 
   const activeIndex = data.values.findIndex(period => period.active);
   const valueSubset = data.values.slice(
@@ -37,7 +37,7 @@
             </span>
           {/if}
           <Glass lit={period.active} style="height: {percentageOfMax(period.value)}%;" />
-          <span class="title" class:subtle={!period.active}>{period.title}</span>
+          <span class="title subtle">{period.title}</span>
         </div>
       {/each}
     </div>
@@ -64,10 +64,8 @@
 
   .periods {
     display: flex;
-    margin-top: .5em;
-    justify-content: space-evenly;
-    min-width: 100vw;
-    margin-right: -1.5em;
+    justify-content: space-between;
+    margin-top: 43.2941px;
     flex: 1;
 
     @media (min-width: 768px) {
@@ -95,6 +93,7 @@
         width: 2.5em;
         margin: .5em 0 .75em;
         min-height: .5em;
+        flex-shrink: 0;
       }
     }
   }
@@ -103,7 +102,7 @@
     display: flex;
     flex-direction: column;
     padding: 0;
-    margin: .5em 0 0;
+    margin: .5em 0;
 
     li {
       padding: 1em 0;
@@ -117,9 +116,11 @@
 
     @media (orientation: landscape) {
       flex-direction: row;
+      margin: 1.5em 0;
 
       li {
         padding: 0 1em;
+        min-width: 13.75em;
 
         &:not(:last-child) {
           border-bottom-width: 0;
