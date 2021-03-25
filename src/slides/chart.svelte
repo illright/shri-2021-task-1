@@ -5,14 +5,21 @@
   import TeamMember from '../common/team-member.svelte';
   import Layout from './_layout.svelte';
 
+  const barsToRender = 9;
+  const barsAfterActive = 2;
+
   export let data: ChartData;
 
-  const minHeightPercent = 2;
   const maxHeightPercent = 70;
 
-  const maxValue = Math.max(...data.values.map(period => period.value));
+  const activeIndex = data.values.findIndex(period => period.active);
+  const valueSubset = data.values.slice(
+    Math.max(activeIndex + 1 - (barsToRender - barsAfterActive), 0),
+    activeIndex + 1 + barsAfterActive,
+  );
+  const maxValue = Math.max(...valueSubset.map(period => period.value));
   function percentageOfMax(value: number) {
-    return minHeightPercent + (value / maxValue) * (maxHeightPercent - minHeightPercent);
+    return (value / maxValue) * maxHeightPercent;
   }
 
   const leadersToShow = 2;
@@ -22,7 +29,7 @@
   <article class="chart">
     <Header title={data.title} subtitle={data.subtitle} />
     <div class="periods">
-      {#each data.values as period (period.title)}
+      {#each valueSubset as period (period.title)}
         <div class="period">
           {#if period.value !== 0}
             <span class="value subhead" class:subtle={!period.active}>
@@ -80,13 +87,14 @@
       margin-left: 1.5em;
       justify-content: flex-end;
 
-      &:last-child {
-        margin-right: 1.5em;
+      &:first-child {
+        margin-left: 0;
       }
 
       :global .glass {
         width: 2.5em;
         margin: .5em 0 .75em;
+        min-height: .5em;
       }
     }
   }
