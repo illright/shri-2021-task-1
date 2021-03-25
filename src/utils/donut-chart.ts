@@ -58,7 +58,7 @@ export function buildDonutSegment(
       L ${pointToSVGCanvas(innerArcEnd, canvasSize)}
       A ${innerRadius}, ${innerRadius} 0 ${+(length >= 180)} 0 ${pointToSVGCanvas(innerArcStart, canvasSize)}
       Z
-    `.trim(),
+    `.trim().replace(/\n\s+/g, ' '),
     bounds: {
       // TODO: fill in
     }
