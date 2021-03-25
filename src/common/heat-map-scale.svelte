@@ -5,7 +5,7 @@
   import type { Interval } from '../utils/activity';
 
   export let intervals: Interval[];
-  export let landscape: bool;
+  export let landscape: boolean;
 </script>
 
 <div class="key scale">
@@ -96,5 +96,9 @@
     width: 59.2px;
     height: 12px;
     border-radius: 2px;
+
+    @media (orientation: landscape) {
+      width: 60px;
+    }
   }
 </style>
