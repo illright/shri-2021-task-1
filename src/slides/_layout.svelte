@@ -3,6 +3,24 @@
 </main>
 
 <style lang="scss">
+  @font-face {
+    font-family: 'Roboto-SHRI';
+    font-weight: 400;
+    src: url('fonts/Roboto-Regular.ttf') format('truetype');
+  }
+
+  @font-face {
+    font-family: 'Roboto-SHRI';
+    font-weight: 500;
+    src: url('fonts/Roboto-Medium.ttf') format('truetype');
+  }
+
+  @font-face {
+    font-family: 'Roboto-SHRI';
+    font-weight: 700;
+    src: url('fonts/Roboto-Bold.ttf') format('truetype');
+  }
+
   :global {
     button {
       color: unset;
@@ -15,24 +33,6 @@
       text-transform: unset;
       text-indent: unset;
       text-shadow: unset;
-    }
-
-    @font-face {
-      font-family: 'Roboto';
-    	font-weight: 400;
-      src: url('fonts/Roboto-Regular.ttf') format('truetype');
-    }
-
-    @font-face {
-      font-family: 'Roboto';
-    	font-weight: 500;
-      src: url('fonts/Roboto-Medium.ttf') format('truetype');
-    }
-
-    @font-face {
-      font-family: 'Roboto';
-    	font-weight: 700;
-      src: url('fonts/Roboto-Bold.ttf') format('truetype');
     }
 
     html, body {
@@ -49,7 +49,7 @@
       --grey: #918F8A;
       --grey-light: #BFBFBF;
       --white: #FCFBF7;
-    	font-family: 'Roboto', sans-serif;
+    	font-family: 'Roboto-SHRI', sans-serif;
     	font-weight: 500;
     	font-size: 16px;
     	line-height: 18px;
@@ -87,6 +87,7 @@
       --diagram-indicator3-shadow: inset -1px 1px 1px rgba(255, 255, 255, 0.5);
 
     	background: radial-gradient(circle at 50% 50%, #120C01 0%, #000000 100%);
+      background: radial-gradient(70.24% 70.24% at 49.87% 29.76%, rgba(18, 12, 1, 0.9) 0%, #000000 100%);
     }
 
     body:not(.theme_light) .team-member img {
@@ -122,7 +123,6 @@
       --diagram-indicator2-shadow: inset -1px 1px 1px rgba(255, 255, 255, 0.5), inset 0px 0px 20px rgba(105, 105, 105, 0.2);
       --diagram-indicator3-bg: radial-gradient(49.84% 49.84% at 49.84% 50.16%, rgba(191, 191, 191, 0.345) 82.81%, rgba(228, 228, 228, 0.1) 92.19%);
       --diagram-indicator3-shadow: inset -1px 1px 1px rgba(255, 255, 255, 0.5), inset 0px 0px 20px rgba(131, 131, 131, 0.6);
-
 
     	background: #fff;
     }

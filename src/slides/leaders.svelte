@@ -51,6 +51,7 @@
   .leaders {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     width: 100%;
   }
 
@@ -58,14 +59,14 @@
     display: flex;
     justify-content: center;
     align-items: stretch;
-    flex: 1;
 
     @media (orientation: portrait) {
-      padding-top: 2.375em;
+      height: 32.5em;
     }
 
     @media (orientation: landscape) {
       padding-top: 1.625em;
+      flex: 1;
     }
 
   }
@@ -125,7 +126,6 @@
     :global .bar {
       width: var(--bar-width);
       position: absolute;
-      align-self: stretch;
       box-sizing: border-box;
       height: 100%;
 
@@ -152,6 +152,10 @@
 
       @media (orientation: landscape) {
         display: none;
+      }
+
+      :global .team-member .value {
+        color: var(--fg);
       }
     }
 
@@ -187,6 +191,10 @@
 
     :global .team-member {
       margin: 0 4px;
+
+      .value {
+        color: var(--grey-light);
+      }
     }
   }
 </style>
