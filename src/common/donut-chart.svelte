@@ -82,9 +82,18 @@
       { inset: true, x: 0, y: 0, blur: 20, color: '#FFB039', opacity: 0.9 },
       { inset: true, x: -1, y: 1, blur: 1, color: '#FFFFFF', opacity: 0.5 },
     ],
-    'light-1': [],
-    'light-2': [],
-    'light-3': [],
+    'light-1': [
+      { inset: true, x: 0, y: 0, blur: 20, color: '#FFB039', opacity: 0.4 },
+      { inset: true, x: -1, y: 1, blur: 1, color: '#FFFFFF', opacity: 0.5 },
+    ],
+    'light-2': [
+      { inset: true, x: 0, y: 0, blur: 20, color: '#696969', opacity: 0.2 },
+      { inset: true, x: -1, y: 1, blur: 1, color: '#FFFFFF', opacity: 0.5 },
+    ],
+    'light-3': [
+      { inset: true, x: 0, y: 0, blur: 20, color: '#838383', opacity: 0.6 },
+      { inset: true, x: -1, y: 1, blur: 1, color: '#FFFFFF', opacity: 0.5 },
+    ],
   };
 </script>
 
@@ -96,7 +105,7 @@
     xmlns="http://www.w3.org/2000/svg"
   >
     {#each segments as segment, index}
-      <g filter="none">
+      <g filter="url(#shadow-{theme}-{index})">
         <path d={segment.script} fill="url(#fill-{theme}-{index})" fill-opacity="0.8" />
       </g>
     {/each}
