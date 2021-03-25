@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Interval } from '../../utils/activity';
+  import type { Interval } from '../utils/activity';
 
   export let data: number[];
   export let intervals: Interval[];

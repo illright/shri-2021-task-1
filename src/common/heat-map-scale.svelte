@@ -1,8 +1,8 @@
 <script lang="ts">
   import {
     intervalToText,
-  } from '../../utils/activity';
-  import type { Interval } from '../../utils/activity';
+  } from '../utils/activity';
+  import type { Interval } from '../utils/activity';
 
   export let intervals: Interval[];
 </script>

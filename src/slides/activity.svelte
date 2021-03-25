@@ -2,8 +2,8 @@
   import type { ActivityData } from '../data';
   import Header from '../common/header.svelte';
   import Layout from './_layout.svelte';
-  import HeatMap from '../uncommon/activity/heat-map.svelte';
-  import HeatMapScale from '../uncommon/activity/heat-map-scale.svelte';
+  import HeatMap from '../common/heat-map.svelte';
+  import HeatMapScale from '../common/heat-map-scale.svelte';
   import {
     buildIntervals,
     convertToPortraitOrder,
