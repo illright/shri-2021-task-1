@@ -1,0 +1,15 @@
+/// Taken from https://stackoverflow.com/a/56081655/5726823
+/// Remove the unit of a length
+/// @param {Number} $number - Number to remove unit from
+/// @return {Number} - Unitless number
+@function strip-unit($number) {
+    @if type-of($number) == 'number' and not unitless($number) {
+        @return $number / ($number * 0 + 1);
+    }
+    @return $number;
+}
+
+/// Convert value to em.
+@function em($size, $base-font-size: 16px) {
+    @return strip-unit($size) / strip-unit($base-font-size) * 1em;
+}

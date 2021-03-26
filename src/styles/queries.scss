@@ -1,0 +1,10 @@
+@use 'sass:map';
+@use './screens.scss';
+
+@function portrait($screen) {
+  @return '(orientation: portrait) and (min-width: #{map.get($screen, "width")})';
+}
+
+@function landscape($screen) {
+  @return '(orientation: landscape) and (min-width: #{map.get($screen, "height")})';
+}

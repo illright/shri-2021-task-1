@@ -1,0 +1,31 @@
+@use './units.scss';
+
+$iphone5: (
+  "width": units.em(320px),
+  "height": units.em(568px)
+);
+
+$iphone8: (
+  "width": units.em(376px),
+  "height": units.em(668px)
+);
+
+$iphone8plus: (
+  "width": units.em(414px),
+  "height": units.em(736px)
+);
+
+$ipad: (
+  "width": units.em(768px),
+  "height": units.em(1024px)
+);
+
+$desktop-s: (
+  "width": units.em(1366px),
+  "height": units.em(768px),
+);
+
+$desktop-l: (
+  "width": units.em(1920px),
+  "height": units.em(1080px)
+);
