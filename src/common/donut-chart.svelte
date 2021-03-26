@@ -165,6 +165,12 @@
 </div>
 
 <style lang="scss">
+  @use 'sass:map';
+  @use '../styles/mixins.scss';
+  @use '../styles/screens.scss';
+  @use '../styles/queries.scss';
+  @use '../styles/units.scss';
+
   .donut {
     position: relative;
     margin-bottom: 1em;
@@ -199,27 +205,40 @@
 
     .headline, .subhead {
       width: 164px;
+
+      @media #{queries.portrait(screens.$ipad)}, #{queries.landscape(screens.$ipad)} {
+        width: 50%;
+      }
     }
 
     .subhead {
       margin-top: 8px;
     }
 
-    @media (orientation: landscape) {
+    @media (orientation: landscape) and (max-width: map.get(screens.$ipad, "width") - units.em(1px)) {
       .headline, .subhead {
         width: 120px;
       }
 
       .headline {
-        font-size: 20px;
-      	line-height: 22px;
+        @include mixins.font-size(20px);
       }
 
       .subhead {
+        @include mixins.font-size(16px);
+
         font-weight: 500;
-      	font-size: 16px;
-      	line-height: 18px;
         margin-top: 6px;
+      }
+    }
+
+    @media #{queries.landscape(screens.$ipad)} {
+      .headline {
+        @include mixins.font-size(26px);
+      }
+
+      .subhead {
+        @include mixins.font-size(22px);
       }
     }
   }

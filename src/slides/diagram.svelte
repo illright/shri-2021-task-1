@@ -38,6 +38,9 @@
 </Layout>
 
 <style lang="scss">
+  @use '../styles/queries.scss';
+  @use '../styles/screens.scss';
+
   .diagram {
     width: 100%;
     display: flex;
@@ -55,10 +58,24 @@
     display: flex;
     flex-direction: column;
 
+    @media (orientation: portrait) {
+      margin-top: 2em;
+    }
+
+    :global .donut {
+      max-width: 30em;
+    }
+
     @media (orientation: landscape) {
       flex-direction: row;
       align-items: center;
       justify-content: center;
+    }
+  }
+
+  @media #{queries.portrait(screens.$ipad)} {
+    .diagram {
+      align-items: center;
     }
   }
 
