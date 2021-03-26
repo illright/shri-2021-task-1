@@ -23,6 +23,9 @@
 </div>
 
 <style lang="scss">
+  @use '../styles/queries.scss';
+  @use '../styles/screens.scss';
+
   .team-member {
     display: flex;
     flex-direction: column;
@@ -77,5 +80,9 @@
 
   .value {
     margin-top: 4px;
+
+    @media #{queries.landscape(screens.$desktop-s)} {
+      margin-top: .5em;
+    }
   }
 </style>

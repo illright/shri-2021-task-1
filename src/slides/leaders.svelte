@@ -44,6 +44,10 @@
 
 <style lang="scss">
   @use 'sass:math';
+  @use 'sass:map';
+  @use '../styles/queries.scss';
+  @use '../styles/screens.scss';
+  @use '../styles/units.scss';
 
   $max-places: 5;
   $max-places-portrait: 3;
@@ -61,7 +65,7 @@
     align-items: stretch;
 
     @media (orientation: portrait) {
-      height: 32.5em;
+      height: (520 / 648) * 100%;
     }
 
     @media (orientation: landscape) {
@@ -76,7 +80,7 @@
       z-index: #{$max-places - $i};
 
       @if $i > $max-places-portrait {
-        @media (orientation: portrait) {
+        @media (orientation: portrait) and (max-width: map.get(screens.$ipad, "width") - units.em(1px)) {
           display: none;
         }
       }
@@ -92,10 +96,11 @@
       }
 
       :global .bar-wrapper {
-        @media (orientation: portrait) {
+        @media (orientation: portrait),
+               (orientation: landscape) and (min-width: map.get(screens.$desktop-s, "width")) {
           height: calc(62.5% - #{50px * ($i - 1)});
         }
-        @media (orientation: landscape) {
+        @media (orientation: landscape) and (max-width: map.get(screens.$desktop-s, "width") - units.em(1px)) {
           height: calc(40% - .8px - #{20px * math.ceil(($i - 1) / 2)});
         }
       }
@@ -173,15 +178,15 @@
       }
     }
 
-    @media (min-width: 768px) and (orientation: portrait) {
-      --bar-width: 25vw;
+    @media #{queries.portrait(screens.$ipad)} {
+      --bar-width: 18vw;
 
       .content {
         padding: 3em 1em 3em;
       }
     }
 
-    @media (min-width: 768px) and (orientation: landscape) {
+    @media #{queries.landscape(screens.$ipad)} {
       --bar-width: 15vw;
 
       .content {
