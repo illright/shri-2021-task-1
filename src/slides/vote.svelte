@@ -90,6 +90,9 @@
 </Layout>
 
 <style lang="scss">
+  @use '../styles/queries.scss';
+  @use '../styles/screens.scss';
+
   .vote {
     width: 100%;
     display: flex;
@@ -131,6 +134,10 @@
       flex-direction: column;
       align-items: center;
       justify-content: space-evenly;
+    }
+
+    @media #{queries.portrait(screens.$ipad)} {
+      padding: 0 10%;
     }
   }
 

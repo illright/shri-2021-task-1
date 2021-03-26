@@ -21,6 +21,9 @@
 </button>
 
 <style lang="scss">
+  @use '../styles/queries.scss';
+  @use '../styles/screens.scss';
+
   button {
     box-sizing: border-box;
     width: 64px;
@@ -51,6 +54,11 @@
       svg {
         fill: var(--button-bg-hover);
       }
+    }
+
+    @media #{queries.portrait(screens.$ipad)}, #{queries.landscape(screens.$ipad)} {
+      width: 4em;
+      height: 4em;
     }
   }
 </style>

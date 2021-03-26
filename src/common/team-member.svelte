@@ -58,8 +58,8 @@
 
   .avatar {
     position: relative;
-    width: 64px;
-    height: 64px;
+    width: 50px;
+    height: 50px;
     margin-bottom: 6px;
 
     .emoji {
@@ -75,6 +75,11 @@
     :global(img) {
       border-radius: 50%;
       width: 100%;
+    }
+
+    @media #{queries.portrait(screens.$iphone8)}, #{queries.landscape(screens.$iphone8)} {
+      width: 64px;
+      height: 64px;
     }
   }
 
