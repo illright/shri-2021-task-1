@@ -6,5 +6,11 @@
 }
 
 @function landscape($screen) {
-  @return '(orientation: landscape) and (min-width: #{map.get($screen, "height")})';
+  $property: null;
+  @if map.get($screen, "height") < map.get($screen, "width") {
+    $property: "width";
+  } @else {
+    $property: "height"
+  }
+  @return '(orientation: landscape) and (min-width: #{map.get($screen, $property)})';
 }
