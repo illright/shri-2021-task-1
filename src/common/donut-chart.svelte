@@ -101,12 +101,17 @@
   <svg
     width="100%"
     height="100%"
-    viewBox="0 0 {canvasSize} {canvasSize}"
+    viewBox="-1 -1 {canvasSize + 2} {canvasSize + 2}"
     xmlns="http://www.w3.org/2000/svg"
   >
     {#each segments as segment, index}
       <g filter="url(#shadow-{theme}-{index})">
-        <path d={segment.script} fill="url(#fill-{theme}-{index})" fill-opacity="0.8" />
+        <path
+          d={segment.script}
+          fill="url(#fill-{theme}-{index})"
+          fill-opacity="0.8"
+          stroke={gradients[`${theme}-${index}`][0].color}
+        />
       </g>
     {/each}
 
