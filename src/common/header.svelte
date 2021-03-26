@@ -9,12 +9,15 @@
 </header>
 
 <style lang="scss">
+  @use '../styles/queries.scss';
+  @use '../styles/screens.scss';
+
   header {
     @media (orientation: portrait) {
       padding-right: 1.75em;
     }
 
-    @media (orientation: landscape) {
+    @media (orientation: landscape), #{queries.portrait(screens.$ipad)} {
       text-align: center;
       padding: 0 1.25em;
     }
