@@ -33,10 +33,12 @@
 </div>
 
 <style lang="scss">
-  $portrait-bar-size: 43.73px;
-  $landscape-bar-size: 34px;
-  $portrait-bar-height: $portrait-bar-size - 33.44px;
-  $landscape-bar-height: $landscape-bar-size - 26px;
+  @use '../styles/units.scss';
+
+  $portrait-bar-size: units.em(43.73px);
+  $landscape-bar-size: units.em(34px);
+  $portrait-bar-height: $portrait-bar-size - units.em(33.44px);
+  $landscape-bar-height: $landscape-bar-size - units.em(26px);
   $portrait-columns: 7;
   $landscape-columns: 12;
 

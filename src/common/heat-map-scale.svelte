@@ -28,6 +28,8 @@
 {/each}
 
 <style lang="scss">
+  @use '../styles/units.scss';
+
   .key {
     display: flex;
     flex-direction: column;
@@ -62,9 +64,9 @@
   }
 
   .segment {
-    width: 51px;
-    height: 4px;
-    margin: 4px;
+    width: units.em(51px);
+    height: units.em(4px);
+    margin: units.em(4px);
     background: var(--activity-segment-bg);
     box-shadow: var(--activity-segment-shadow);
 
@@ -72,8 +74,8 @@
 
     &::before, &::after {
       content: "";
-      width: 4px;
-      height: 12px;
+      width: units.em(4px);
+      height: units.em(12px);
       background: var(--activity-segment-bg);
       box-shadow: var(--activity-segment-shadow);
       position: absolute;
@@ -93,12 +95,12 @@
   }
 
   .bar {
-    width: 59.2px;
-    height: 12px;
-    border-radius: 2px;
+    width: units.em(59.2px);
+    height: units.em(12px);
+    border-radius: units.em(2px);
 
     @media (orientation: landscape) {
-      width: 60px;
+      width: units.em(60px);
     }
   }
 </style>
