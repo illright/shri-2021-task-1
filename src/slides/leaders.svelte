@@ -155,7 +155,7 @@
       flex-direction: column;
       align-items: center;
 
-      @media (orientation: landscape) {
+      @media (orientation: landscape), #{queries.portrait(screens.$ipad)} {
         display: none;
       }
 
