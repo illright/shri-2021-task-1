@@ -49,6 +49,9 @@
 </Layout>
 
 <style lang="scss">
+  @use '../styles/screens.scss';
+  @use '../styles/queries.scss';
+
   .activity {
     display: flex;
     flex-direction: column;
@@ -77,6 +80,22 @@
         margin-top: 2em;
         text-align: center;
       }
+    }
+
+    @media #{queries.landscape(screens.$iphone8plus)} {
+      font-size: 18px;
+    }
+
+    @media #{queries.portrait(screens.$ipad)}, #{queries.landscape(screens.$ipad)} {
+      font-size: 26px;
+    }
+
+    @media #{queries.landscape(screens.$desktop-s)} {
+      font-size: 26px;
+    }
+
+    @media #{queries.landscape(screens.$desktop-l)} {
+      font-size: 40px;
     }
   }
 

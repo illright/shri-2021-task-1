@@ -10,8 +10,6 @@
   export let data: LeadersData;
   const bars = generateBars(data);
   const invertBarsIndex = invertIndex.bind(bars);
-
-  // TODO: line clipping
 </script>
 
 <Layout>
@@ -96,12 +94,14 @@
       }
 
       :global .bar-wrapper {
-        @media (orientation: portrait),
-               (orientation: landscape) and (min-width: map.get(screens.$desktop-s, "width")) {
+        @media (orientation: portrait) {
           height: calc(62.5% - #{50px * ($i - 1)});
         }
         @media (orientation: landscape) and (max-width: map.get(screens.$desktop-s, "width") - units.em(1px)) {
           height: calc(40% - .8px - #{20px * math.ceil(($i - 1) / 2)});
+        }
+        @media (orientation: landscape) and (min-width: map.get(screens.$desktop-s, "width")) {
+          height: calc(52.5% - #{30px * ($i - 1)});
         }
       }
     }
@@ -199,6 +199,10 @@
 
       .value {
         color: var(--grey-light);
+      }
+
+      @media #{queries.landscape(screens.$desktop-s)} {
+        margin: 0 1em;
       }
     }
   }

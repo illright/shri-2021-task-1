@@ -179,12 +179,16 @@
       margin-right: 2.5em;
       margin-bottom: 0;
     }
+
+    @media #{queries.landscape(screens.$desktop-l)} {
+      margin-right: 5em;
+    }
   }
 
   svg {
     display: block;
 
-    @media (orientation: landscape) {
+    @media (orientation: landscape) and (max-width: map.get(screens.$ipad, "width") - units.em(1px)) {
       width: 15em;
       height: 15em;
     }
@@ -239,6 +243,16 @@
 
       .subhead {
         @include mixins.font-size(22px);
+      }
+    }
+
+    @media #{queries.landscape(screens.$desktop-l)} {
+      .headline {
+        @include mixins.font-size(36px);
+      }
+
+      .subhead {
+        @include mixins.font-size(28px);
       }
     }
   }

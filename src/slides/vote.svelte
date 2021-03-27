@@ -160,4 +160,15 @@
       box-shadow: var(--glass-shadow-lit);
     }
   }
+
+  @media #{queries.landscape(screens.$desktop-s)} {
+    .vote {
+      align-items: center;
+
+      .grid {
+        width: 70vw;
+        margin-left: 0;
+      }
+    }
+  }
 </style>

@@ -38,8 +38,10 @@
 </Layout>
 
 <style lang="scss">
+  @use 'sass:map';
   @use '../styles/queries.scss';
   @use '../styles/screens.scss';
+  @use '../styles/units.scss';
 
   .diagram {
     width: 100%;
@@ -60,16 +62,27 @@
 
     @media (orientation: portrait) {
       margin-top: 2em;
-    }
 
-    :global .donut {
-      max-width: 30em;
+      :global .donut {
+        max-width: 30em;
+      }
     }
 
     @media (orientation: landscape) {
       flex-direction: row;
       align-items: center;
       justify-content: center;
+
+      :global .donut {
+        max-width: 24em;
+      }
+    }
+  }
+
+  @media (orientation: portrait) and (max-width: map.get(screens.$iphone8, "width") - units.em(1px)) {
+    .diagram {
+      max-width: 18em;
+      align-items: center;
     }
   }
 
@@ -117,6 +130,10 @@
           box-shadow: var(--diagram-indicator#{$i - 1}-shadow);
         }
       }
+    }
+
+    @media #{queries.landscape(screens.$desktop-s)} {
+      min-width: 25em;
     }
   }
 </style>

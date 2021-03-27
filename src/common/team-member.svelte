@@ -25,6 +25,7 @@
 <style lang="scss">
   @use '../styles/queries.scss';
   @use '../styles/screens.scss';
+  @use '../styles/units.scss';
 
   .team-member {
     display: flex;
@@ -58,16 +59,16 @@
 
   .avatar {
     position: relative;
-    width: 50px;
-    height: 50px;
-    margin-bottom: 6px;
+    width: units.em(50px);
+    height: units.em(50px);
+    margin-bottom: units.em(6px);
 
     .emoji {
-      font-size: 32px;
-      line-height: 32px;
+      font-size: 2em;
+      line-height: 2em;
       position: absolute;
       left: 50%;
-      top: 10px;
+      top: units.em(10px);
       transform: translate(-50%, -100%);
       z-index: 2;
     }
@@ -78,8 +79,8 @@
     }
 
     @media #{queries.portrait(screens.$iphone8)}, #{queries.landscape(screens.$iphone8)} {
-      width: 64px;
-      height: 64px;
+      width: units.em(64px);
+      height: units.em(64px);
     }
   }
 
