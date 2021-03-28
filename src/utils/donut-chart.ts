@@ -1,8 +1,8 @@
-import { computeMinMax } from './activity';
-
-
+/** A point in a Cartesian plane. */
 class Point {
+  /** The point's X-coordinate. */
   x: number;
+  /** The point's Y-coordinate. */
   y: number;
 
   constructor(x: number, y: number) {
@@ -10,14 +10,29 @@ class Point {
     this.y = y;
   };
 
+  /** Return a string representation suitable for embedding into a SVG path script. */
   toString() {
     return `${this.x}, ${this.y}`;
   }
 
+  /**
+   * Convert a point from a regular coordinate system
+   * (Ox left-to-right, Oy bottom-to-top, origin in the middle)
+   * to the one used by the SVG (Ox left-to-right, Oy top-to-bottom, origin in the top left).
+   *
+   * @param canvasSize The size of the SVG viewBox (assumed that it is square).
+   * @return A new point in the converted coordinate system.
+   */
   toCanvas(canvasSize: number) {
     return new Point(this.x + canvasSize / 2, -this.y + canvasSize / 2);
   }
 
+  /**
+   * Rotate a point about the origin counter-clockwise.
+   *
+   * @param angleDeg The angle of rotation in degrees.
+   * @return A new rotated point.
+   */
   rotate(angleDeg: number) {
     const sine = Math.sin(toRadians(angleDeg));
     const cosine = Math.cos(toRadians(angleDeg));
@@ -29,15 +44,35 @@ class Point {
   }
 }
 
-export function rescale(segments: number[]) {
-  const sum = segments.reduce((a, b) => a + b, 0);
-  return segments.map(segment => segment / sum);
+/**
+ * Rescale an array so that every element is from 0 to 1.
+ *
+ * @param array An array of numbers to rescale.
+ * @return A new array with each element rescaled from 0 to 1.
+ */
+export function rescale(array: number[]) {
+  const sum = array.reduce((a, b) => a + b, 0);
+  return array.map(element => element / sum);
 }
 
+/**
+ * Compute the length of each segment in degrees, leaving a 1deg gap between.
+ *
+ * @param segments An array of segments, represented as fractions between 0 and 1.
+ * @return An array of lengths of those segments in degrees.
+ */
 export function segmentsToDegrees(segments: number[]) {
   return segments.map(segment => segment * (360 - segments.length));
 }
 
+/**
+ * Compute the degree offsets midpoints of segments given as lengths in degrees
+ * when laying them out in order, clockwise, placing the midpoint of the first segment at the
+ * top of the circle.
+ *
+ * @param segmentDegrees The lengths of segments to lay out on the circle.
+ * @return An array of degree offsets from the top of the circle for each segment.
+ */
 export function calculateMidpoints(segmentDegrees: number[]) {
   const midpoints = [0];
   for (let i = 1; i < segmentDegrees.length; ++i) {
@@ -46,10 +81,20 @@ export function calculateMidpoints(segmentDegrees: number[]) {
   return midpoints;
 }
 
+/** Convert an angle from degrees to radians. */
 export function toRadians(angle: number) {
   return angle * (Math.PI / 180);
 }
 
+/**
+ * Return the coordinates of a point when placed on a circle of a given `center` and `radius`
+ * at `angle` degrees from the top, clockwise.
+ *
+ * @param angle The angle offset of the point from the top of the circle, going clockwise, in degrees.
+ * @param radius The radius of the circle.
+ * @param center The center point of the circle.
+ * @return A `Point` object placed on the circle.
+ */
 export function pointOnCircle(angle: number, radius: number, center: Point): Point {
   return new Point(
     radius * Math.sin(toRadians(angle)) + center.x,
@@ -57,6 +102,16 @@ export function pointOnCircle(angle: number, radius: number, center: Point): Poi
   );
 }
 
+/**
+ * Generate a path script to draw a donut chart segment.
+ *
+ * @param position The degree offset of the midpoint of that segment on the circle from the top, clockwise.
+ * @param length The length of the segment in degrees.
+ * @param outerRadius The radius of the outer circle.
+ * @param outerRadius The radius of the inner circle.
+ * @param outerRadius The canvas size (needed for centering the chart).
+ * @return A path script (for <path d="...">) as a string.
+ */
 export function buildDonutSegment(
   position: number,
   length: number,
