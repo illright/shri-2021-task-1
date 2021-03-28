@@ -8,8 +8,8 @@
     buildIntervals,
     convertToPortraitOrder,
     convertToLandscapeOrder,
-    computeMinMax,
   } from '../utils/activity';
+  import minMax from '../utils/min-max';
 
   export let data: ActivityData;
   const portraitMapData = convertToPortraitOrder(data.data);
@@ -18,11 +18,11 @@
   const variants = {
     portrait: {
       data: portraitMapData,
-      intervals: buildIntervals(...computeMinMax(portraitMapData)),
+      intervals: buildIntervals(...minMax(portraitMapData)),
     },
     landscape: {
       data: landscapeMapData,
-      intervals: buildIntervals(...computeMinMax(landscapeMapData)),
+      intervals: buildIntervals(...minMax(landscapeMapData)),
     },
   };
 </script>
