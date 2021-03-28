@@ -37,6 +37,7 @@
     x: number;
     y: number;
     blur: number;
+    spread?: number;
     color: string;
     opacity: number;
     inset: boolean;
@@ -94,14 +95,34 @@
       { inset: true, x: 0, y: 0, blur: 20, color: '#838383', opacity: 0.6 },
       { inset: true, x: -1, y: 1, blur: 1, color: '#FFFFFF', opacity: 0.5 },
     ],
+    'dark-0': [
+      { inset: true, x: 0, y: 0, blur: 20, color: '#FFA200', opacity: 0.9 },
+      { inset: true, x: -1, y: 1, blur: 1, color: '#FFFFFF', opacity: 0.5 },
+      { inset: false, x: 0, y: 0, blur: 20, spread: -8, color: '#F89E00', opacity: 0.2 },
+    ],
+    'dark-1': [
+      { inset: true, x: 0, y: 0, blur: 20, color: '#CA8100', opacity: 0.9 },
+      { inset: true, x: -1, y: 1, blur: 1, color: '#FFFFFF', opacity: 0.5 },
+      { inset: false, x: 0, y: 0, blur: 20, spread: -8, color: '#935D00', opacity: 0.2 },
+    ],
+    'dark-2': [
+      { inset: true, x: 0, y: 0, blur: 20, color: '#8B8B8B', opacity: 0.9 },
+      { inset: true, x: -1, y: 1, blur: 1, color: '#FFFFFF', opacity: 0.5 },
+      { inset: false, x: 0, y: 0, blur: 20, spread: -8, color: '#000000', opacity: 0.2 },
+    ],
+    'dark-3': [
+      { inset: true, x: 0, y: 0, blur: 20, color: '#262626', opacity: 0.9 },
+      { inset: true, x: -1, y: 1, blur: 1, color: '#FFFFFF', opacity: 0.5 },
+      { inset: false, x: 0, y: 0, blur: 20, spread: -8, color: '#606060', opacity: 0.2 },
+    ],
   };
 </script>
 
-<div class="donut">
+<div class="donut {theme}-only">
   <svg
     width="100%"
     height="100%"
-    viewBox="-1 -1 {canvasSize + 2} {canvasSize + 2}"
+    viewBox="0 0 {canvasSize} {canvasSize}"
     xmlns="http://www.w3.org/2000/svg"
   >
     {#each segments as segment, index}
@@ -110,29 +131,32 @@
           d={segment.script}
           fill="url(#fill-{theme}-{index})"
           fill-opacity="0.8"
-          stroke={gradients[`${theme}-${index}`][0].color}
         />
       </g>
     {/each}
 
     <defs>
-      {#each segments as segment, index}
+      {#each segments as _segment, index}
         <filter
           id="shadow-{theme}-{index}"
-          {...segment.bounds}
+          x="-10%"
+          y="-10%"
+          width="120%"
+          height="120%"
           filterUnits="userSpaceOnUse"
           color-interpolation-filters="sRGB"
         >
           <SVGBackgroundImageFix />
-          {#each shadowFilters[`${theme}-${index}`] as shadow}
+          {#each shadowFilters[`${theme}-${index}`] as shadow, innerIndex}
             {#if shadow.inset}
               <SVGInnerShadow
-                id="inner-shadow-{index}"
+                id={innerIndex === shadowFilters[`${theme}-${index}`].length - 1 ? `inner-shadow-${index}`: `inner-shadow-${index}:${innerIndex}`}
                 x={shadow.x}
                 y={shadow.y}
                 blur={shadow.blur}
                 color={shadow.color}
                 opacity={shadow.opacity}
+                blendWith={innerIndex === 0 ? 'shape' : `inner-shadow-${index}:${innerIndex - 1}`}
               />
             {/if}
           {/each}

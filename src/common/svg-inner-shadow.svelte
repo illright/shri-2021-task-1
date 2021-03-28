@@ -5,6 +5,7 @@
   export let blur: number = 0;
   export let color: string = '#000000';
   export let opacity: number = 1;
+  export let blendWith = 'shape';
 
   const [r, g, b] = convertColor(color);
 
@@ -29,4 +30,4 @@
                                      0 0 0 0 {g}
                                      0 0 0 0 {b}
                                      0 0 0 {opacity} 0" />
-<feBlend mode="normal" in2="shape" result={id} />
+<feBlend mode="normal" in2={blendWith} result={id} />

@@ -6,17 +6,21 @@
   import { extractAmount, forceSign } from '../utils/diagram';
 
   export let data: DiagramData;
+  const chartData = data.categories.map(category => extractAmount(category.valueText));
 </script>
 
 <Layout>
   <article class="diagram">
     <Header title={data.title} subtitle={data.subtitle} />
     <figure>
-      <DonutChart
-        data={data.categories.map(category => extractAmount(category.valueText))}
-        totalText={data.totalText}
-        differenceText={data.differenceText}
-      />
+      {#each ['light', 'dark'] as theme}
+        <DonutChart
+          data={chartData}
+          totalText={data.totalText}
+          differenceText={data.differenceText}
+          {theme}
+        />
+      {/each}
       <figcaption>
         <ul class="categories">
           {#each data.categories as category (category.title)}
