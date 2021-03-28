@@ -1,12 +1,12 @@
 <script lang="ts">
-  import SVGInnerShadow from './svg-inner-shadow.svelte';
-  import SVGBackgroundImageFix from './svg-background-image-fix.svelte';
+  import SVGShadows from './svg-shadows.svelte';
   import {
     buildDonutSegment,
     calculateMidpoints,
     rescale,
     segmentsToDegrees,
   } from '../utils/donut-chart';
+  import type { Shadow } from './shadow';
 
   const canvasSize = 328;
   // const cornerRadius = canvasSize / 40;
@@ -31,16 +31,6 @@
     offset: number;
     color: string;
     opacity: number;
-  }
-
-  interface Shadow {
-    x: number;
-    y: number;
-    blur: number;
-    spread?: number;
-    color: string;
-    opacity: number;
-    inset: boolean;
   }
 
   const gradients: Record<string, GradientStop[]> = {
@@ -137,30 +127,7 @@
 
     <defs>
       {#each segments as _segment, index}
-        <filter
-          id="shadow-{theme}-{index}"
-          x="-10%"
-          y="-10%"
-          width="120%"
-          height="120%"
-          filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
-        >
-          <SVGBackgroundImageFix />
-          {#each shadowFilters[`${theme}-${index}`] as shadow, innerIndex}
-            {#if shadow.inset}
-              <SVGInnerShadow
-                id={innerIndex === shadowFilters[`${theme}-${index}`].length - 1 ? `inner-shadow-${index}`: `inner-shadow-${index}:${innerIndex}`}
-                x={shadow.x}
-                y={shadow.y}
-                blur={shadow.blur}
-                color={shadow.color}
-                opacity={shadow.opacity}
-                blendWith={innerIndex === 0 ? 'shape' : `inner-shadow-${index}:${innerIndex - 1}`}
-              />
-            {/if}
-          {/each}
-        </filter>
+        <SVGShadows id="shadow-{theme}-{index}" shadows={shadowFilters[`${theme}-${index}`]} />
       {/each}
       {#each segments as _segment, index}
         <radialGradient
