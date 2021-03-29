@@ -1,4 +1,4 @@
 /node_modules/
-/build/stories.*
+/build/*.map
 
 .DS_Store
