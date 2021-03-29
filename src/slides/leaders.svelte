@@ -197,10 +197,6 @@
     :global .team-member {
       margin: 0 4px;
 
-      .value {
-        color: var(--grey-light);
-      }
-
       @media #{queries.landscape(screens.$desktop-s)} {
         margin: 0 1em;
       }
