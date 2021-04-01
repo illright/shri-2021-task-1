@@ -148,7 +148,6 @@
     padding: 1.25em .25em 1em;
     width: 6em;
     border-radius: .375em;
-    margin: 2px 0;
 
     &:hover {
       background: var(--glass-bg);
