@@ -9,7 +9,7 @@
   import type { Shadow } from './shadow';
 
   const canvasSize = 328;
-  // const cornerRadius = canvasSize / 40;
+  const cornerRadius = 6;
   const innerToOuterRatio = 0.7;
   const outerRadius = canvasSize / 2;
   const innerRadius = outerRadius * innerToOuterRatio;
@@ -23,7 +23,7 @@
   const midpoints = calculateMidpoints(lengths);
   const segments = midpoints.map(
     (midpoint, index) => buildDonutSegment(
-      midpoint, lengths[index], outerRadius, innerRadius, canvasSize
+      midpoint, lengths[index], outerRadius, innerRadius, cornerRadius, canvasSize
     )
   );
 

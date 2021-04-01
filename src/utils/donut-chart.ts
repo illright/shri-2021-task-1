@@ -28,6 +28,17 @@ class Point {
   }
 
   /**
+   * Convert a point from a Cartesian coordinate system
+   * to a polar coordinate system (angles counterclockwise from Ox).
+   */
+  toPolar() {
+    return new PolarPoint(
+      Math.atan2(this.y, this.x),
+      Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2)),
+    );
+  }
+
+  /**
    * Rotate a point about the origin counter-clockwise.
    *
    * @param angleDeg The angle of rotation in degrees.
@@ -41,6 +52,24 @@ class Point {
       this.x * cosine - this.y * sine,
       this.x * sine + this.y * cosine,
     );
+  }
+}
+
+/** A point in a polar plane. */
+class PolarPoint {
+  /** The point's angle in radians counterclockwise from Ox. */
+  phi: number;
+  /** The point's distance from the origin. */
+  r: number;
+
+  constructor(phi: number, r: number) {
+    this.phi = phi;
+    this.r = r;
+  }
+
+  /** Convert a point from a polar plane to a Cartesian one. */
+  toCartesian() {
+    return new Point(this.r * Math.cos(this.phi), this.r * Math.sin(this.phi));
   }
 }
 
@@ -87,29 +116,14 @@ export function toRadians(angle: number) {
 }
 
 /**
- * Return the coordinates of a point when placed on a circle of a given `center` and `radius`
- * at `angle` degrees from the top, clockwise.
- *
- * @param angle The angle offset of the point from the top of the circle, going clockwise, in degrees.
- * @param radius The radius of the circle.
- * @param center The center point of the circle.
- * @return A `Point` object placed on the circle.
- */
-export function pointOnCircle(angle: number, radius: number, center: Point): Point {
-  return new Point(
-    radius * Math.sin(toRadians(angle)) + center.x,
-    radius * Math.cos(toRadians(angle)) + center.y,
-  );
-}
-
-/**
  * Generate a path script to draw a donut chart segment.
  *
  * @param position The degree offset of the midpoint of that segment on the circle from the top, clockwise.
  * @param length The length of the segment in degrees.
  * @param outerRadius The radius of the outer circle.
- * @param outerRadius The radius of the inner circle.
- * @param outerRadius The canvas size (needed for centering the chart).
+ * @param innerRadius The radius of the inner circle.
+ * @param cornerRadius The radius of the the rounded corners.
+ * @param canvasSize The canvas size (needed for centering the chart).
  * @return A path script (for <path d="...">) as a string.
  */
 export function buildDonutSegment(
@@ -117,100 +131,88 @@ export function buildDonutSegment(
   length: number,
   outerRadius: number,
   innerRadius: number,
+  cornerRadius: number,
   canvasSize: number,
 ) {
-  const canvasCenter = new Point(0, 0);
-  const outerArcStart = pointOnCircle(position - length / 2, outerRadius, canvasCenter);
-  // const outerArcStartCurveStart = pointOnCircle(180 - position - length / 2, cornerRadius, outerArcStart);
-  // const outerArcStartCurveEnd = pointOnCircle(90 - position - length / 2, cornerRadius, outerArcStart);
-  const outerArcEnd = pointOnCircle(position + length / 2, outerRadius, canvasCenter);
-  // const outerArcEndCurveStart = pointOnCircle(180 + position + length / 2, cornerRadius, outerArcEnd);
-  // const outerArcEndCurveEnd = pointOnCircle(position + length / 2 - 90, cornerRadius, outerArcEnd);
-  const innerArcStart = pointOnCircle(position - length / 2, innerRadius, canvasCenter);
-  const innerArcEnd = pointOnCircle(position + length / 2, innerRadius, canvasCenter);
+  const outerArcStart = new PolarPoint(Math.PI / 2 - toRadians(position - length / 2), outerRadius);
+  const [outerArcStartCurveStart, outerArcStartCurveEnd] = curveCorner(
+    outerArcStart,
+    cornerRadius,
+    { curveOutside: false, clockwise: true },
+  );
+  const outerArcEnd = new PolarPoint(Math.PI / 2 - toRadians(position + length / 2), outerRadius);
+  const [outerArcEndCurveStart, outerArcEndCurveEnd] = curveCorner(
+    outerArcEnd,
+    cornerRadius,
+    { curveOutside: false, clockwise: false },
+  );
+  const innerArcStart = new PolarPoint(Math.PI / 2 - toRadians(position - length / 2), innerRadius);
+  const [innerArcStartCurveStart, innerArcStartCurveEnd] = curveCorner(
+    innerArcStart,
+    cornerRadius,
+    { curveOutside: true, clockwise: true },
+  );
+  const innerArcEnd = new PolarPoint(Math.PI / 2 - toRadians(position + length / 2), innerRadius);
+  const [innerArcEndCurveStart, innerArcEndCurveEnd] = curveCorner(
+    innerArcEnd,
+    cornerRadius,
+    { curveOutside: true, clockwise: false },
+  );
+  const takeLargerArc = +(outerArcStart.phi - outerArcEnd.phi >= Math.PI);
 
   return {
     script: `
-      M ${outerArcStart.toCanvas(canvasSize)}
-      A ${outerRadius}, ${outerRadius} 0 ${+(length >= 180)} 1 ${outerArcEnd.toCanvas(canvasSize)}
-      L ${innerArcEnd.toCanvas(canvasSize)}
-      A ${innerRadius}, ${innerRadius} 0 ${+(length >= 180)} 0 ${innerArcStart.toCanvas(canvasSize)}
+      M ${outerArcStartCurveStart.toCartesian().toCanvas(canvasSize)}
+      A ${cornerRadius} ${cornerRadius} 0 0 1 ${outerArcStartCurveEnd.toCartesian().toCanvas(canvasSize)}
+      A ${outerRadius}, ${outerRadius} 0 ${takeLargerArc} 1 ${outerArcEndCurveEnd.toCartesian().toCanvas(canvasSize)}
+      A ${cornerRadius} ${cornerRadius} 0 0 1 ${outerArcEndCurveStart.toCartesian().toCanvas(canvasSize)}
+      L ${innerArcEndCurveStart.toCartesian().toCanvas(canvasSize)}
+      A ${cornerRadius} ${cornerRadius} 0 0 1 ${innerArcEndCurveEnd.toCartesian().toCanvas(canvasSize)}
+      A ${innerRadius}, ${innerRadius} 0 ${takeLargerArc} 0 ${innerArcStartCurveEnd.toCartesian().toCanvas(canvasSize)}
+      A ${cornerRadius} ${cornerRadius} 0 0 1 ${innerArcStartCurveStart.toCartesian().toCanvas(canvasSize)}
       Z
     `.trim().replace(/\n\s+/g, ' '),
-    bounds: computeBounds(outerArcStart, outerArcEnd, innerArcStart, innerArcEnd, canvasSize),
   }
 }
 
-function computeBounds(s1: Point, f1: Point, s2: Point, f2: Point, canvasSize: number) {
-  let rotation: 0 | 90 | 180 | 270;
-  if (s1.x >= 0) {
-    if (s1.y >= 0) {
-      rotation = 0;
-    } else {
-      rotation = 90;
-    }
-  } else {
-    if (s1.y <= 0) {
-      rotation = 180;
-    } else {
-      rotation = 270;
-    }
-  }
-
-  s1 = s1.rotate(rotation);
-  f1 = f1.rotate(rotation);
-  s2 = s2.rotate(rotation);
-  f2 = f2.rotate(rotation);
-  let topLeft: Point, bottomRight: Point;
-  topLeft = s1;
-  bottomRight = f1;
-  if (f1.x >= 0) {
-    if (f1.y >= 0) {
-      topLeft = new Point(s2.x, s1.y);
-      bottomRight = new Point(f1.x, f2.y);
-    } else {
-      topLeft = new Point(Math.min(s2.x, f2.x), s1.y);
-      bottomRight = new Point(canvasSize / 2, f1.y);
-    }
-  } else {
-    if (f1.y <= 0) {
-      topLeft = new Point(f1.x, s1.y);
-      bottomRight = new Point(canvasSize / 2, -canvasSize / 2);
-    } else {
-      topLeft = new Point(-canvasSize / 2, Math.max(s1.y, f1.y));
-      bottomRight = new Point(canvasSize / 2, -canvasSize / 2);
-    }
-  }
-
-  [topLeft, bottomRight] = rotateRect([topLeft, bottomRight], rotation);
-  const bottomLeft = topLeft.toCanvas(canvasSize);
-  const topRight = bottomRight.toCanvas(canvasSize);
-  return {
-    x: bottomLeft.x,
-    y: bottomLeft.y,
-    width: topRight.x - bottomLeft.x,
-    height: topRight.y - bottomLeft.y,
-  };
+/** See `curveCorner` for the description of the parameters. */
+interface CurveCornerOptions {
+  curveOutside: boolean;
+  clockwise: boolean;
 }
 
-type Rectangle = [Point, Point];
+/**
+ * Curve a corner between a straight line and an arc.
+ *
+ * @param cornerPoint The polar point of the sharp corner to be curved.
+ * @param curvatureRadius The radius of the curved corner.
+ * @param curveCornerOptions Additional parameters of curving.
+ * @param curveCornerOptions.curveOutside Whether the curve should go outwards from the center.
+ * @param curveCornerOptions.clockwise Whether the curve should go clockwise.
+ */
+function curveCorner(
+  cornerPoint: PolarPoint,
+  curvatureRadius: number,
+  { curveOutside, clockwise }: CurveCornerOptions,
+) {
+  const distanceToCurveCenter = cornerPoint.r + falseToNegative(curveOutside) * curvatureRadius;
+  const cornerToCurveCenterAngle = Math.atan2(curvatureRadius, distanceToCurveCenter);
+  const contactWithLine = new PolarPoint(
+    cornerPoint.phi,
+    curvatureRadius / Math.sin(cornerToCurveCenterAngle),
+  );
+  const contactWithCurve = new PolarPoint(
+    cornerPoint.phi - falseToNegative(clockwise) * cornerToCurveCenterAngle,
+    cornerPoint.r,
+  );
 
-function rotateRect([topLeft, bottomRight]: Rectangle, rotation: 0 | 90 | 180 | 270): Rectangle {
-  topLeft = topLeft.rotate(-rotation);
-  bottomRight = bottomRight.rotate(-rotation);
-  if (rotation === 0) {
-    return [topLeft, bottomRight];
-  } else if (rotation === 90) {
-    return [
-      new Point(bottomRight.x, topLeft.y),
-      new Point(topLeft.x, bottomRight.y),
-    ]
-  } else if (rotation === 180) {
-    return [bottomRight, topLeft];
-  } else {
-    return [
-      new Point(topLeft.x, bottomRight.y),
-      new Point(bottomRight.x, topLeft.y),
-    ];
+  return [contactWithLine, contactWithCurve];
+}
+
+/** Return -1 for false and 1 for true. */
+function falseToNegative(value: boolean) {
+  if (value) {
+    return 1;
   }
+  return -1;
 }
